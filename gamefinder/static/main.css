@@ -1,0 +1,39 @@
+body{
+    background-color: #ffffff;
+    font-family:'Courier New', Courier, monospace;
+    margin: 20px;
+}
+
+h1{
+    font-size: 5em;
+    color: #000000;
+    text-align: center;
+}
+
+h3{
+    width: 50%; /* o el ancho que necesites */
+    margin: 0 auto;
+    text-align: center;
+}
+
+form{
+    display: flex;
+    justify-content: center;
+    margin-top: 50px;   
+}
+
+input[type="text"] {
+    padding: 10px;
+    width: 300px;
+    font-family:'Courier New', Courier, monospace;
+    font-size: medium;
+}
+
+#autocomplete-results {
+    max-height: 200px;
+    overflow-y: auto;
+    border: 1px solid #ced4da;
+    border-top: none;
+    background: white;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+}

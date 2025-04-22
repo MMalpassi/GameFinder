@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+    <head>
+
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js" integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq" crossorigin="anonymous"></script>
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='main.css') }}">
+        <meta charset="UTF-8">
+
+        <title> GameFinder </title>
+    </head>
+    <body>
+        
+        <h1>Welcome to GameFinder!</h1>
+        <h3>Browse through the most well-known video games up to 2020 to see their Metacritic scores and pick the best ones to play!</h3>
+
+        <form method="GET" action="/search" target="_blank"> 
+            <div class="position-relative">
+                <input type="text" name="query" id="search-input" placeholder="Search for a game..." autocomplete="off" class="form-control">
+                <div id="autocomplete-results" class="list-group position-absolute w-100" style="z-index:1000;"></div>
+            </div>
+            <button type="submit" class="btn btn-primary">Search</button>
+        </form>
+
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                const input = document.getElementById("search-input");
+                const resultsDiv = document.getElementById("autocomplete-results");
+            
+                input.addEventListener("input", function() {
+                    const value = input.value.trim();
+            
+                    if (value.length === 0) {
+                        resultsDiv.innerHTML = "";
+                        return;
+                    }
+            
+                    fetch(`/autocomplete?q=${encodeURIComponent(value)}`)
+                        .then(response => response.json())
+                        .then(data => {
+                            resultsDiv.innerHTML = "";
+            
+                            data.forEach(item => {
+                                const suggestion = document.createElement("button");
+                                suggestion.type = "button";
+                                suggestion.className = "list-group-item list-group-item-action";
+                                suggestion.textContent = item;
+            
+                                suggestion.addEventListener("click", function() {
+                                    input.value = item;
+                                    resultsDiv.innerHTML = "";
+                                });
+            
+                                resultsDiv.appendChild(suggestion);
+                            });
+                        });
+                });
+            
+                // Ocultar sugerencias si se hace clic fuera
+                document.addEventListener("click", function(e) {
+                    if (!resultsDiv.contains(e.target) && e.target !== input) {
+                        resultsDiv.innerHTML = "";
+                    }
+                });
+            });
+            </script>
+
+    </body>
+        
+</html>
+
