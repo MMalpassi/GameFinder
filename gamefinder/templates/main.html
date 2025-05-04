@@ -11,15 +11,22 @@
     </head>
     <body>
         
-        <h1>Welcome to GameFinder!</h1>
-        <h3>Browse through the most well-known video games up to 2020 to see their Metacritic scores and pick the best ones to play!</h3>
-
-        <form method="GET" action="/search" target="_blank"> 
-            <div class="position-relative">
-                <input type="text" name="query" id="search-input" placeholder="Search for a game..." autocomplete="off" class="form-control">
-                <div id="autocomplete-results" class="list-group position-absolute w-100" style="z-index:1000;"></div>
+        <section class="hero">
+            <img src="{{ url_for('static', filename='images/game-control.png') }}" alt="GameFinder Logo" class="logo">
+            <div class="hero-text">
+                <h1>GameFinder</h1>
+                <p class="tagline">
+                    Browse through the most well-known video games up to 2020 to see their Metacritic scores and pick the best ones to play!
+                </p>
             </div>
-            <button type="submit" class="btn btn-primary">Search</button>
+        </section>
+
+        <form method="GET" action="/search" target="_blank">
+            <div class="search-group">
+                <input type="text" name="query" id="search-input" placeholder="Search for a game..." autocomplete="off" class="search-input">
+                <button type="submit" class="search-button">🔍 Search</button>
+                <div id="autocomplete-results" class="autocomplete-results"></div>
+            </div>
         </form>
 
         <script>

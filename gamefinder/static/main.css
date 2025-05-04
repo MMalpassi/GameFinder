@@ -1,39 +1,103 @@
 body{
-    background-color: #ffffff;
-    font-family:'Courier New', Courier, monospace;
-    margin: 20px;
+    background: url('../static/images/wallpaper-controllers.webp') no-repeat center center fixed;
+    background-repeat: repeat;
+    background-size: auto;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    margin: 0;
+    padding: 0;
 }
 
-h1{
-    font-size: 5em;
-    color: #000000;
-    text-align: center;
+.hero {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+    gap: 30px;
+    background: rgba(3, 5, 19, 0.5);
+    color: white;
+    text-align: left;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  }
+  
+.logo {
+    width: 80px;
+    height: auto;
+    flex-shrink: 0;
+}
+  
+.hero-text {
+    max-width: 600px;
+}
+  
+.hero-text h1 {
+    font-size: 2.5rem;
+    margin: 0;
+    font-weight: 700;
+    color: #38bdf8;
+}
+  
+.hero-text .tagline {
+    font-size: 1.1rem;
+    margin-top: 10px;
+    line-height: 1.5;
+    color: #e2e8f0;
 }
 
-h3{
-    width: 50%; /* o el ancho que necesites */
-    margin: 0 auto;
-    text-align: center;
-}
-
-form{
+.search-form {
     display: flex;
     justify-content: center;
-    margin-top: 50px;   
+    align-items: center;
+    margin: 40px auto;
+    width: 100%;
 }
-
-input[type="text"] {
-    padding: 10px;
-    width: 300px;
-    font-family:'Courier New', Courier, monospace;
-    font-size: medium;
+  
+.search-group {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+    max-width: 600px;
+    position: relative;
+    padding: 20px;
+    box-sizing: border-box;
 }
-
-#autocomplete-results {
+  
+.search-input {
+    padding: 16px 20px;
+    font-size: 1.2rem;
+    border: 2px solid #94a3b8;
+    border-radius: 8px 8px 0 0;
+    outline: none;
+    width: 100%;  
+}
+  
+.search-button {
+    margin-top: 8px;
+    padding: 12px;
+    font-size: 1.1rem;
+    background-color: #38bdf8;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+  
+.search-button:hover {
+    background-color: #0ea5e9;
+}
+  
+.autocomplete-results {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background: white;
+    border: 1px solid #ddd;
     max-height: 200px;
     overflow-y: auto;
-    border: 1px solid #ced4da;
-    border-top: none;
-    background: white;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    z-index: 1000;
+    border-radius: 0 0 8px 8px;
 }
+  
