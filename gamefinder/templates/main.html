@@ -21,11 +21,13 @@
             </div>
         </section>
 
-        <form method="GET" action="/search" target="_blank">
-            <div class="search-group">
+        <form method="GET" action="/search" target="_blank" class="search-form">
+            <div class="search-row">
+              <div class="search-wrapper">
                 <input type="text" name="query" id="search-input" placeholder="Search for a game..." autocomplete="off" class="search-input">
                 <button type="submit" class="search-button">🔍 Search</button>
                 <div id="autocomplete-results" class="autocomplete-results"></div>
+              </div>
             </div>
         </form>
 
@@ -50,7 +52,7 @@
                             data.forEach(item => {
                                 const suggestion = document.createElement("button");
                                 suggestion.type = "button";
-                                suggestion.className = "list-group-item list-group-item-action";
+                                suggestion.className = "list-group-item list-group-item-action result-item";
                                 suggestion.textContent = item;
             
                                 suggestion.addEventListener("click", function() {
@@ -62,11 +64,51 @@
                             });
                         });
                 });
-            
-                // Ocultar sugerencias si se hace clic fuera
+
                 document.addEventListener("click", function(e) {
                     if (!resultsDiv.contains(e.target) && e.target !== input) {
                         resultsDiv.innerHTML = "";
+                    }
+                });
+
+                let currentFocus = -1;
+
+                input.addEventListener('keydown', function(e) {
+                    const items = resultsDiv.querySelectorAll('.result-item');
+
+                    if (e.key === 'ArrowDown') {
+                        currentFocus++;
+                        addActive(items);
+                        e.preventDefault();
+                    } else if (e.key === 'ArrowUp') {
+                        currentFocus--;
+                        addActive(items);
+                        e.preventDefault();
+                    } else if (e.key === 'Enter') {
+                        if (currentFocus > -1 && items[currentFocus]) {
+                            e.preventDefault();
+                            items[currentFocus].click();
+                        }
+                    }
+                });
+
+                function addActive(items) {
+                    if (!items) return;
+                    removeActive(items);
+                    if (currentFocus >= items.length) currentFocus = 0;
+                    if (currentFocus < 0) currentFocus = items.length - 1;
+                    items[currentFocus].classList.add('active');
+                }
+
+                function removeActive(items) {
+                    items.forEach(item => item.classList.remove('active'));
+                }
+
+                // Opcional: Clic fuera cierra el autocompletado
+                document.addEventListener('click', function(e) {
+                    if (!resultsDiv.contains(e.target) && e.target !== input) {
+                        resultsDiv.innerHTML = '';
+                        currentFocus = -1;
                     }
                 });
             });
