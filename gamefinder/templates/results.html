@@ -1,30 +1,38 @@
 <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='main.css') }}">
-<h2>Results for "{{ query }}":</h2>
+<h2 class="results-title">Results for "{{ query }}":</h2>
 
 {% if results %}
-    <table border="1">
-        <thead>
-            <tr>
-                <th><a href="{{ url_for('search', query=query, sort='name') }}">Name</a></th>
-                <th><a href="{{ url_for('search', query=query, sort='developer') }}">Developer</a></th>
-                <th><a href="{{ url_for('search', query=query, sort='rdate') }}">Release Date</a></th>
-                <th><a href="{{ url_for('search', query=query, sort='platform') }}">Platform</a></th>
-                <th><a href="{{ url_for('search', query=query, sort='genre') }}">Genre</a></th>
-                <th><a href="{{ url_for('search', query=query, sort='score') }}">Score</a></th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for r in results %}
+    <div class="results-container">
+        <table class="results-table">
+            <thead>
                 <tr>
-                    <td>{{ r.name }}</td>
-                    <td>{{ r.developer }}</td>
-                    <td>{{ r.rdate }}</td>
-                    <td>{{ r.platform }}</td>
-                    <td>{{ r.genre }}</td>
-                    <td>{{ r.score }}</td>
+                    <th>Name</th>
+                    <th>Developer</th>
+                    <th>Release Date</th>
+                    <th>Platform</th>
+                    <th>Genre</th>
+                    <th>
+                        <a href="{{ url_for('search', query=query, sort='score', order='desc' if order == 'asc' else 'asc') }}">
+                            Score {% if sort == 'score' %}{{ '↑' if order == 'desc' else '↓' }}{% endif %}
+                        </a>
+                    </th>
                 </tr>
-            {% endfor %}
-        </tbody>
+            </thead>
+            <tbody>
+                {% for r in results %}
+                    <tr>
+                        <td>{{ r.name }}</td>
+                        <td>{{ r.developer }}</td>
+                        <td>{{ r.rdate }}</td>
+                        <td>{{ r.platform }}</td>
+                        <td>{{ r.genre }}</td>
+                        <td>{{ r.score }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
 {% else %}
-    <h2>No results found.</h2>
+    <h2 class="no-results">No results found.</h2>
 {% endif %}
+

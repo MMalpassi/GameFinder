@@ -118,3 +118,48 @@ body{
 .result-item.active {
     background-color: #e0f2fe;
 }
+
+/* Results */
+.results-title, .no-results {
+    text-align: center;
+    color: #000000;
+    margin-top: 30px;
+    font-size: 2.5rem;
+}
+
+.results-container {
+    margin: 30px auto;
+    max-width: 90%;
+    background-color: rgba(3, 5, 19, 0.6);
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+    overflow-x: auto;
+}
+
+.results-table {
+    width: 100%;
+    border-collapse: collapse;
+    color: #e2e8f0;
+    font-size: 1rem;
+}
+
+.results-table th, .results-table td {
+    padding: 12px 16px;
+    border: 1px solid #475569;
+    text-align: left;
+}
+
+.results-table th {
+    background-color: #0f172a;
+    color: #38bdf8;
+    cursor: pointer;
+}
+
+.results-table tr:nth-child(even) {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+.results-table tr:hover {
+    background-color: rgba(38, 183, 245, 0.192);
+}

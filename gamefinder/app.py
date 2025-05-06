@@ -17,13 +17,14 @@ def home():
 def search():
     query = request.args.get('query')
     sort_by = request.args.get('sort', 'score')
+    order = request.args.get('order', 'desc')
     resultados = []
     
     if query:
         with ix.searcher() as searcher:
             parser = QueryParser("texto_lema", ix.schema)
             whoosh_query = parser.parse(query)
-            results = searcher.search(whoosh_query, limit=10)
+            results = searcher.search(whoosh_query)
 
             for matches in results:
                 resultados.append({
@@ -35,12 +36,13 @@ def search():
                     "score": matches["score"],
                 })
             
+            reverse = True if order == 'desc' else False
             try:
-                resultados = sorted(resultados, key=lambda x: x[sort_by], reverse=True)
+                resultados = sorted(resultados, key=lambda x: x[sort_by], reverse=reverse)
             except:
                 pass
 
-    return render_template('results.html', results=resultados, query=query)
+    return render_template('results.html', results=resultados, query=query, sort=sort_by, order=order)
 
 @app.route('/autocomplete')
 def autocomplete():
