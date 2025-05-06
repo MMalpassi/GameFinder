@@ -53,8 +53,15 @@ def autocomplete():
         with ix.searcher() as searcher:
             parser = QueryParser("texto_lema", ix.schema)
             whoosh_query = parser.parse(partial)
-            results = searcher.search(whoosh_query, limit=5)
-            for hit in results:
+            results = searcher.search(whoosh_query, limit=None)
+
+            sorted_results = sorted(
+                results,
+                key=lambda r: float(r['score']) if r.get('score') else 0.0,
+                reverse=True
+            )
+
+            for hit in sorted_results[:5]:
                 suggestions.append(hit['name'])
 
     return jsonify(suggestions)
