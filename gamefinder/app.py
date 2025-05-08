@@ -48,6 +48,7 @@ def search():
 def autocomplete():
     partial = request.args.get('q', '')
     suggestions = []
+    seen_names = set()
 
     if partial:
         with ix.searcher() as searcher:
@@ -62,7 +63,12 @@ def autocomplete():
             )
 
             for hit in sorted_results[:5]:
-                suggestions.append(hit['name'])
+                name = hit['name']
+                if name not in seen_names:
+                    suggestions.append(name)
+                    seen_names.add(name)
+                if len(suggestions) == 5:
+                    break
 
     return jsonify(suggestions)
 
